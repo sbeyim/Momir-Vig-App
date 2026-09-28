@@ -1,5 +1,7 @@
 import random
 import requests
+url = "https://api.scryfall.com/cards/search"
+
 
 #Define Functions:
 #Ask for mana value (Validate that mana value is valid)
@@ -13,23 +15,38 @@ def Get_Mana_Value_X():
         except ValueError:
             print("Please enter a whole number.")
 
-#Use user input to create query
-def Construct_Query():
+#Use user input to create query and find total number of cards
+def Construct_List_Query(url, Mana_Value_X):
+    params = {
+        "q": f"is:firstprinting type:creature game:paper mv:{Mana_Value_X}"
+    }
 
-#Request query on scryfall search
-def Request_List():
+    headers = {
+        "User-Agent": "Momir-Vig-App/0.1"
+    }
+    
+    Response = requests.get(url, params=params, headers=headers)
+    Cards_List = Response.json()
 
-#Using total number of cards, choose a random number creature
-def Choose_Random_Creature():
+    return Cards_List["total_cards"]
 
-#Find page with creature
-def Find_Page():
+# #Using total number of cards, choose a random number creature
+# def Choose_Random_Creature():
 
-#Get data of chosen creature
-def Get_Creature_Data():
+# #Find page with creature
+# def Find_Page():
 
-#Display creature data
-def Display_Creature_Data():
+# #Get data of chosen creature
+# def Get_Creature_Data():
 
-#API Error handler
-def API_Error_Handler():
+# #Display creature data
+# def Display_Creature_Data():
+
+# #API Error handler
+# def API_Error_Handler():
+
+
+def main():
+    User-Input = Get_Mana_Value_X
+    Total-Cards = Construct_List_Query(url, User-Input)
+    

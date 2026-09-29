@@ -1,6 +1,8 @@
 import random
 import requests
+import math
 url = "https://api.scryfall.com/cards/search"
+Cards_In_Page = 175
 
 
 #Define Functions:
@@ -28,16 +30,25 @@ def Construct_List_Query(url, Mana_Value_X):
     Response = requests.get(url, params=params, headers=headers)
     Cards_List = Response.json()
 
+    print("Status:", Response.status_code)
+    print("Total Cards:", Cards_List["total_cards"])
     return Cards_List["total_cards"]
 
-# #Using total number of cards, choose a random number creature
-# def Choose_Random_Creature():
+#Using total number of cards, choose a random number creature
+def Choose_Random_Creature(Total_Cards):
+    Chosen_Card = random.randint(1, Total_Cards)
+    return Chosen_Card
 
-# #Find page with creature
-# def Find_Page():
+#Find page with creature
+def Find_Page(Chosen_Card):
+    
+    Page = math.ceil(Chosen_Card/Cards_In_Page)
+    Position = ((Chosen_Card - 1) % Cards_In_Page) +1
 
-# #Get data of chosen creature
-# def Get_Creature_Data():
+    return Page, Position
+
+#Get data of chosen creature
+#def Get_Creature_Data():
 
 # #Display creature data
 # def Display_Creature_Data():
@@ -47,6 +58,13 @@ def Construct_List_Query(url, Mana_Value_X):
 
 
 def main():
-    User-Input = Get_Mana_Value_X
-    Total-Cards = Construct_List_Query(url, User-Input)
-    
+    User_Input = Get_Mana_Value_X()
+    Total_Cards = Construct_List_Query(url, User_Input)
+    Chosen_Card = Choose_Random_Creature(Total_Cards)
+    print(Chosen_Card)
+    Page, Position = Find_Page(Chosen_Card)
+    print("Page:", Page)
+    print("Position:", Position)
+
+
+main()

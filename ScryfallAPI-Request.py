@@ -48,10 +48,29 @@ def Find_Page(Chosen_Card):
     return Page, Position
 
 #Get data of chosen creature
-#def Get_Creature_Data():
+def Get_Creature_Data(url, Mana_Value_X, Page, Position):
+    params = {
+        "q": f"is:firstprinting type:creature game:paper mv:{Mana_Value_X}",
+        "page": Page
+    }
 
-# #Display creature data
-# def Display_Creature_Data():
+    headers = {
+        "User-Agent": "Momir-Vig-App/0.1"
+    }
+
+    Response = requests.get(url, params=params, headers=headers)
+    Cards_List = Response.json()
+
+    Selected_Creature_Data = Cards_List["data"][Position - 1]
+
+    return Selected_Creature_Data
+
+#Display creature data
+def Display_Creature_Data(Selected_Creature_Data):
+    print(Selected_Creature_Data["name"])
+    print(Selected_Creature_Data["mana_cost"])
+    print(Selected_Creature_Data["type_line"])
+    print(Selected_Creature_Data["oracle_text"])
 
 # #API Error handler
 # def API_Error_Handler():
@@ -65,6 +84,7 @@ def main():
     Page, Position = Find_Page(Chosen_Card)
     print("Page:", Page)
     print("Position:", Position)
-
+    Selected_Creature_Data = Get_Creature_Data(url, User_Input, Page, Position)
+    Display_Creature_Data(Selected_Creature_Data)
 
 main()

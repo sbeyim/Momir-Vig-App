@@ -11,7 +11,7 @@ def Get_Mana_Value_X():
     while True:
         
         try:
-            Mana_Value = int(input("\nEnter chosen mana value X: "))
+            Mana_Value = int(input("\nEnter chosen mana value X (X can't be 0!): "))
             return Mana_Value
         
         except ValueError:

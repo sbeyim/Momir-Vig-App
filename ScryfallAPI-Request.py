@@ -11,7 +11,7 @@ def Get_Mana_Value_X():
     while True:
         
         try:
-            Mana_Value = int(input("Enter chosen mana value X: "))
+            Mana_Value = int(input("\nEnter chosen mana value X: "))
             return Mana_Value
         
         except ValueError:
@@ -20,7 +20,7 @@ def Get_Mana_Value_X():
 #Use user input to create query and find total number of cards
 def Construct_List_Query(url, Mana_Value_X):
     params = {
-        "q": f"is:firstprinting type:creature game:paper mv:{Mana_Value_X}"
+        "q": f"-is:funny is:firstprinting type:creature game:paper mv:{Mana_Value_X} -t:land"
     }
 
     headers = {
@@ -30,7 +30,7 @@ def Construct_List_Query(url, Mana_Value_X):
     Response = requests.get(url, params=params, headers=headers)
     Cards_List = Response.json()
 
-    print("Status:", Response.status_code)
+    #print("Status:", Response.status_code)
     print("Total Cards:", Cards_List["total_cards"])
     return Cards_List["total_cards"]
 
@@ -50,7 +50,7 @@ def Find_Page(Chosen_Card):
 #Get data of chosen creature
 def Get_Creature_Data(url, Mana_Value_X, Page, Position):
     params = {
-        "q": f"is:firstprinting type:creature game:paper mv:{Mana_Value_X}",
+        "q": f"-is:funny is:firstprinting type:creature game:paper mv:{Mana_Value_X} -t:land",
         "page": Page
     }
 
@@ -67,6 +67,7 @@ def Get_Creature_Data(url, Mana_Value_X, Page, Position):
 
 #Display creature data
 def Display_Creature_Data(Selected_Creature_Data):
+    print("")
     print(Selected_Creature_Data["name"])
     print(Selected_Creature_Data["mana_cost"])
     print(Selected_Creature_Data["type_line"])
@@ -77,14 +78,24 @@ def Display_Creature_Data(Selected_Creature_Data):
 
 
 def main():
-    User_Input = Get_Mana_Value_X()
-    Total_Cards = Construct_List_Query(url, User_Input)
-    Chosen_Card = Choose_Random_Creature(Total_Cards)
-    print(Chosen_Card)
-    Page, Position = Find_Page(Chosen_Card)
-    print("Page:", Page)
-    print("Position:", Position)
-    Selected_Creature_Data = Get_Creature_Data(url, User_Input, Page, Position)
-    Display_Creature_Data(Selected_Creature_Data)
+    Continue_Play = "Y"
+
+    print("Welcome to Seth's Momir Vig App")
+
+    while Continue_Play == "Y" or Continue_Play == "y":
+        User_Input = Get_Mana_Value_X()
+        Total_Cards = Construct_List_Query(url, User_Input)
+        Chosen_Card = Choose_Random_Creature(Total_Cards)
+        #print(Chosen_Card)
+        Page, Position = Find_Page(Chosen_Card)
+        #print("Page:", Page)
+        #print("Position:", Position)
+        Selected_Creature_Data = Get_Creature_Data(url, User_Input, Page, Position)
+        Display_Creature_Data(Selected_Creature_Data)
+        Continue_Play = input("\nRequest another creature? (Y/N): ")
+        print("\n")
+
+    print("Thank you for using Seth's Momir Vig App!")
+
 
 main()

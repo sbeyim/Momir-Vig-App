@@ -72,6 +72,9 @@ def Display_Creature_Data(Selected_Creature_Data):
     print(Selected_Creature_Data["mana_cost"])
     print(Selected_Creature_Data["type_line"])
     print(Selected_Creature_Data["oracle_text"])
+    power = Selected_Creature_Data["power"]
+    toughness = Selected_Creature_Data["toughness"]
+    print(f"({power}/{toughness})")
 
 # #API Error handler
 # def API_Error_Handler():

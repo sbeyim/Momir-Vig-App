@@ -20,14 +20,24 @@ def Get_Mana_Value_X():
         except ValueError:
             print("Please enter a whole number.")
 
+
+def Build_Params(Mana_Value_X, Page=None):
+    params = {
+        "q": rf"game:paper -is:funny type:/^[^\/]*creature/ -t:land mv:{Mana_Value_X}",
+        "unique": "cards",
+        "order": "name",
+    }
+    if Page is not None:
+        params["page"] = Page
+    return params
+
 #Use user input to create query and find total number of cards
 def Construct_List_Query(url, Mana_Value_X):
-    params = {
-        "q": f"-is:funny is:firstprinting type:creature game:paper mv:{Mana_Value_X} -t:land"
-    }
+    params = Build_Params(Mana_Value_X)
 
     headers = {
-        "User-Agent": "Momir-Vig-App/0.1"
+        "User-Agent": "Momir-Vig-App/0.1",
+        "Accept": "application/json"
     }
     
     Response = requests.get(url, params=params, headers=headers)
@@ -94,7 +104,7 @@ def Display_Creature_Data(Selected_Creature_Data):
     print("")
     if "card_faces" in Selected_Creature_Data:
         for face in Selected_Creature_Data["card_faces"]:
-            Display_face(face)
+            Display_Face(face)
             print("")
             #print this face's name, mana_cost, etc.
     else:

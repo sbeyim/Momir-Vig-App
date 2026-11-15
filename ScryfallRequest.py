@@ -1,8 +1,13 @@
 import random
 import requests
 import math
+import time
 url = "https://api.scryfall.com/cards/search"
 Cards_In_Page = 175
+Count_Cache = {}
+Cache_Seconds = 24 * 60 * 60 # 1 day
+
+
 
 def Build_Params(Mana_Value_X, Page=None):
     params = {
@@ -16,24 +21,26 @@ def Build_Params(Mana_Value_X, Page=None):
 
 #Use user input to create query and find total number of cards
 def Construct_List_Query(url, Mana_Value_X):
-    params = Build_Params(Mana_Value_X)
-
+    Cached = Count_Cache.get(Mana_Value_X)
+    if Cached and time.time() - Cached["time"] < Cache_Seconds:
+        return Cached["total"]
+    
     headers = {
         "User-Agent": "Momir-Vig-App/0.1",
         "Accept": "application/json"
     }
     
-    Response = requests.get(url, params=params, headers=headers)
+    Response = requests.get(url, params = Build_Params(Mana_Value_X), headers=headers)
 
     if Response.status_code != 200:
         #print("No creatures found for that mana value.")
         return 0
-
-    Cards_List = Response.json()
-
+    
     #print("Status:", Response.status_code)
     #print("Total Cards:", Cards_List["total_cards"])
-    return Cards_List["total_cards"]
+    Total = Response.json()["total_cards"]
+    Count_Cache[Mana_Value_X] = {"total": Total, "time": time.time()}
+    return Total
 
 #Using total number of cards, choose a random number creature
 def Choose_Random_Creature(Total_Cards):
@@ -50,16 +57,11 @@ def Find_Page(Chosen_Card):
 
 #Get data of chosen creature
 def Get_Creature_Data(url, Mana_Value_X, Page, Position):
-    params = {
-        "q": f"-is:funny is:firstprinting type:creature game:paper mv:{Mana_Value_X} -t:land",
-        "page": Page
-    }
-
     headers = {
         "User-Agent": "Momir-Vig-App/0.1"
     }
 
-    Response = requests.get(url, params=params, headers=headers)
+    Response = requests.get(url, params=Build_Params(Mana_Value_X, Page), headers=headers)
 
     if Response.status_code != 200:
         #print("Could not retrieve the creature.")
@@ -67,9 +69,11 @@ def Get_Creature_Data(url, Mana_Value_X, Page, Position):
 
     Cards_List = Response.json()
 
-    Selected_Creature_Data = Cards_List["data"][Position - 1]
-
-    return Selected_Creature_Data
+    try:
+        return Cards_List["data"][Position - 1]
+    except IndexError:
+        return None
+    
 
 
 #{Display_Face and Display_Creature_Data functions are replaced in website code with Format_Creature_Data}

@@ -1,0 +1,9 @@
+body { font-family: system-ui, sans-serif; margin: 0; background: #f4f4f4; color: #222; }
+main { max-width: 800px; margin: 0 auto; padding: 2rem 1rem; }
+.button { display: inline-block; padding: 0.6rem 1.2rem; margin: 0.25rem;
+          background: #333; color: #fff; text-decoration: none; border-radius: 6px; }
+.button:hover { background: #555; }
+.button-grid { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+.card-display { display: flex; flex-wrap: wrap; gap: 1.5rem; margin: 1.5rem 0; }
+.card-display img { width: 300px; max-width: 100%; border-radius: 12px; }
+.oracle { white-space: pre-line; }

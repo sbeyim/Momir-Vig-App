@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block title %}Welcome | Momir Vig{% endblock %}
+{% block content %}
+    <h1>Welcome to Seth's Momir Vig App</h1>
+    <p>Playing Momir Vig in person? Pick a mana value and this site will
+       pull a random creature of that value for you, complete with card art
+       and rules text.</p>
+    <ol>
+        <li>Click Start.</li>
+        <li>Choose a mana value.</li>
+        <li>Get a random creature. Click again for another.</li>
+    </ol>
+    <a class="button" href="{{ url_for('play') }}">Start</a>
+{% endblock %}

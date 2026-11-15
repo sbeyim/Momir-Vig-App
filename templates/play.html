@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block title %}Choose a Mana Value{% endblock %}
+{% block content %}
+    <h1>Choose a mana value</h1>
+    <div class="button-grid">
+        {% for value in mana_values %}
+            <a class="button" href="{{ url_for('creature', mana_value=value) }}">{{ value }}</a>
+        {% endfor %}
+    </div>
+{% endblock %}

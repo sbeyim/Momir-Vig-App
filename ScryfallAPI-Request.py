@@ -7,18 +7,21 @@ Cards_In_Page = 175
 
 #Define Functions:
 #Ask for mana value (Validate that mana value is valid)
-def Get_Mana_Value_X():
-    while True:
+
+#{Get_Mana_Value_X function is no longer needed for app. Just used when directly in console.}
+
+# def Get_Mana_Value_X():
+#     while True:
         
-        try:
-            Mana_Value = int(input("\nEnter chosen mana value X (X can't be 0!): "))
-            if Mana_Value < 1:
-                print("Please enter a number greater than 0.")
-                continue
-            return Mana_Value
+#         try:
+#             Mana_Value = int(input("\nEnter chosen mana value X (X can't be 0!): "))
+#             if Mana_Value < 1:
+#                 print("Please enter a number greater than 0.")
+#                 continue
+#             return Mana_Value
         
-        except ValueError:
-            print("Please enter a whole number.")
+#         except ValueError:
+#             print("Please enter a whole number.")
 
 
 def Build_Params(Mana_Value_X, Page=None):
@@ -43,13 +46,13 @@ def Construct_List_Query(url, Mana_Value_X):
     Response = requests.get(url, params=params, headers=headers)
 
     if Response.status_code != 200:
-        print("No creatures found for that mana value.")
+        #print("No creatures found for that mana value.")
         return 0
 
     Cards_List = Response.json()
 
     #print("Status:", Response.status_code)
-    print("Total Cards:", Cards_List["total_cards"])
+    #print("Total Cards:", Cards_List["total_cards"])
     return Cards_List["total_cards"]
 
 #Using total number of cards, choose a random number creature
@@ -79,7 +82,7 @@ def Get_Creature_Data(url, Mana_Value_X, Page, Position):
     Response = requests.get(url, params=params, headers=headers)
 
     if Response.status_code != 200:
-        print("Could not retrieve the creature.")
+        #print("Could not retrieve the creature.")
         return None
 
     Cards_List = Response.json()
@@ -88,62 +91,81 @@ def Get_Creature_Data(url, Mana_Value_X, Page, Position):
 
     return Selected_Creature_Data
 
-#Display card face for MDFCs
-def Display_Face(face):
-    print(face.get("name", ""))
-    print(face.get("mana_cost", ""))
-    print(face.get("type_line", ""))
-    print(face.get("oracle_text", ""))
-    power = face.get("power")
-    toughness = face.get("toughness")
-    if power is not None and toughness is not None:
-        print(f"({power}/{toughness})")
 
-#Display creature data
-def Display_Creature_Data(Selected_Creature_Data):
-    print("")
-    if "card_faces" in Selected_Creature_Data:
-        for face in Selected_Creature_Data["card_faces"]:
-            Display_Face(face)
-            print("")
-            #print this face's name, mana_cost, etc.
-    else:
-        print(Selected_Creature_Data["name"])
-        print(Selected_Creature_Data["mana_cost"])
-        print(Selected_Creature_Data["type_line"])
-        print(Selected_Creature_Data["oracle_text"])
-        power = Selected_Creature_Data["power"]
-        toughness = Selected_Creature_Data["toughness"]
-        if power is not None and toughness is not None:
-            print(f"({power}/{toughness})")
+#{Display_Face and Display_Creature_Data functions are replaced in website code with Format_Creature_Data}
+
+#Display card face for MDFCs
+# def Display_Face(face):
+#     print(face.get("name", ""))
+#     print(face.get("mana_cost", ""))
+#     print(face.get("type_line", ""))
+#     print(face.get("oracle_text", ""))
+#     power = face.get("power")
+#     toughness = face.get("toughness")
+#     if power is not None and toughness is not None:
+#         print(f"({power}/{toughness})")
+
+# #Display creature data
+# def Display_Creature_Data(Selected_Creature_Data):
+#     print("")
+#     if "card_faces" in Selected_Creature_Data:
+#         for face in Selected_Creature_Data["card_faces"]:
+#             Display_Face(face)
+#             print("")
+#             #print this face's name, mana_cost, etc.
+#     else:
+#         print(Selected_Creature_Data["name"])
+#         print(Selected_Creature_Data["mana_cost"])
+#         print(Selected_Creature_Data["type_line"])
+#         print(Selected_Creature_Data["oracle_text"])
+#         power = Selected_Creature_Data["power"]
+#         toughness = Selected_Creature_Data["toughness"]
+#         if power is not None and toughness is not None:
+#             print(f"({power}/{toughness})")
+
+def format_Creature_Data(Selected_Creature_Data):
+    face = Selected_Creature_Data["card_faces"][0] if "card_faces" in Selected_Creature_Data else Selected_Creature_Data
+    images = Selected_Creature_Data.get("image_uris") or face.get("image_uris", {})
+    return {
+        "name": face.get("name", ""),
+        "mana_cost": face.get("mana_cost", ""),
+        "type_line": face.get("type_line", ""),
+        "oracle_text": face.get("oracle_text", ""),
+        "power": face.get("power"),
+        "toughness": face.get("toughness"),
+        "image": images.get("normal")
+    }
 
 # #API Error handler
 # def API_Error_Handler():
 
 
-def main():
-    Continue_Play = "Y"
+#{main function no longer used because no more console use. Also no more direct user connection to program.}
 
-    print("Welcome to Seth's Momir Vig App")
+# def main():
+#     Continue_Play = "Y"
 
-    while Continue_Play == "Y" or Continue_Play == "y":
-        User_Input = Get_Mana_Value_X()
-        Total_Cards = Construct_List_Query(url, User_Input)
-        if Total_Cards == 0:
-            pass
-        else:
-            Chosen_Card = Choose_Random_Creature(Total_Cards)
-            #print(Chosen_Card)
-            Page, Position = Find_Page(Chosen_Card)
-            #print("Page:", Page)
-            #print("Position:", Position)
-            Selected_Creature_Data = Get_Creature_Data(url, User_Input, Page, Position)
-            Display_Creature_Data(Selected_Creature_Data)
+#     print("Welcome to Seth's Momir Vig App")
+
+#     while Continue_Play == "Y" or Continue_Play == "y":
+#         User_Input = Get_Mana_Value_X()
+#         Total_Cards = Construct_List_Query(url, User_Input)
+#         if Total_Cards == 0:
+#             pass
+#         else:
+#             Chosen_Card = Choose_Random_Creature(Total_Cards)
+#             #print(Chosen_Card)
+#             Page, Position = Find_Page(Chosen_Card)
+#             #print("Page:", Page)
+#             #print("Position:", Position)
+#             Selected_Creature_Data = Get_Creature_Data(url, User_Input, Page, Position)
+#             Display_Creature_Data(Selected_Creature_Data)
         
-        Continue_Play = input("\nRequest another creature? (Y/N): ")
-        print("\n")
+#         Continue_Play = input("\nRequest another creature? (Y/N): ")
+#         print("\n")
 
-    print("Thank you for using Seth's Momir Vig App!")
+#     print("Thank you for using Seth's Momir Vig App!")
+
 
 
 main()

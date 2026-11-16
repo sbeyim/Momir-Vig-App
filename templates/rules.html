@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% block title %}Rules | Momir Vig{% endblock %}
+{% block content %}
+    <h1>How to Play Momir Vig</h1>
+
+    <p>Momir Vig is a Magic: The Gathering format where every player's deck is only
+       basic lands, and creatures come from one repeatable ability. This site plays
+       the part of the "random creature" step for you when playing in person.</p>
+
+    <section class="rules-section">
+        <h2>Setup</h2>
+        <ul>
+            <li>Each player builds a deck of basic lands only (60 cards is typical).</li>
+            <li>Each player uses a Momir Vig, Simic Visionary Vanguard card as their avatar.
+                It sits next to the battlefield and never leaves the game.</li>
+            <li>Players start at 24 life with a normal 7-card hand.</li>
+            <li>Decide who goes first however you like. The first player usually skips their first draw.</li>
+        </ul>
+    </section>
+
+    <section class="rules-section">
+        <h2>The Momir Vig ability</h2>
+        <p>Once each turn, at sorcery speed, you may pay {X} and discard a card. If you do,
+           you create a token that's a copy of a random creature card with mana value X.
+           Lands can still be played and tapped for mana as normal.</p>
+        <p>The token is a copy of the creature card with that mana value, so it has the card's
+           abilities, power, and toughness. It does not have haste unless the creature
+           card itself has it.</p>
+    </section>
+
+    <section class="rules-section">
+        <h2>Using this site</h2>
+        <ol>
+            <li>Pay X mana and discard a card, as above.</li>
+            <li>On the <a href="{{ url_for('play') }}">Play page</a>, tap the button matching your X.</li>
+            <li>The site shows a random creature with that mana value. Use that card for your token.</li>
+            <li>Tap "Another" if you need a different one, for example after a mistake or for the next turn's activation.</li>
+        </ol>
+    </section>
+
+    <section class="rules-section">
+        <h2>What counts as a creature on this site</h2>
+        <ul>
+            <li>Creatures legal to play in paper Magic.</li>
+            <li>Cards from Un-sets and other joke or playtest cards are excluded.</li>
+            <li>Each creature appears once, regardless of how many times it's been printed.</li>
+            <li>For double-faced cards, the creature must be on the front face, and only the front face is shown.</li>
+            <li>Creature lands such as Dryad Arbor are included.</li>
+            <li>There are no creatures with mana value 14, so that button is missing.</li>
+            <li>Mana value 0 is allowed, so you can pay nothing and still get a result.</li>
+        </ul>
+    </section>
+
+    <section class="rules-section">
+        <h2>Winning</h2>
+        <p>The normal rules of Magic apply: reduce your opponent's life to 0 to win. Because
+           every card in your deck is a land, drawing and discarding is how you decide how
+           big a creature you can afford.</p>
+    </section>
+
+    <a class="button" href="{{ url_for('play') }}">Start playing</a>
+{% endblock %}

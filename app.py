@@ -45,6 +45,10 @@ def creature(mana_value):
     card = ScryfallRequest.Get_Random_Creature(mana_value)
     return render_template("creature.html", mana_value=mana_value, card=card)
 
+@app.route("/rules")
+def rules():
+    return render_template("rules.html")
+
 
 if __name__ == "__main__":
     app.run(debug=False)

@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block title %}Page Not Found | Momir Vig{% endblock %}
+{% block content %}
+    <section class="error-page">
+        <p class="error-code">404</p>
+        <h1>This spell fizzled</h1>
+        <p class="error-text">We couldn't find the page you were looking for. The link may be
+           mistyped, or that mana value doesn't exist on this site.</p>
+        <div class="actions">
+            <a class="button button-primary" href="{{ url_for('play') }}">Choose a mana value</a>
+            <a class="button" href="{{ url_for('landing') }}">Back to home</a>
+        </div>
+    </section>
+{% endblock %}

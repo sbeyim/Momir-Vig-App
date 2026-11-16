@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block title %}Server Error | Momir Vig{% endblock %}
+{% block content %}
+    <section class="error-page">
+        <p class="error-code">500</p>
+        <h1>This spell fizzled</h1>
+        <p class="error-text">Something went wrong while talking to Scryfall. Please try again.</p>
+        <div class="actions">
+            <a class="button button-primary" href="{{ url_for('play') }}">Choose a mana value</a>
+            <a class="button" href="{{ url_for('landing') }}">Back to home</a>
+        </div>
+    </section>
+{% endblock %}

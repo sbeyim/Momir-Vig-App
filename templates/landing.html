@@ -1,14 +1,30 @@
 {% extends "base.html" %}
 {% block title %}Welcome | Momir Vig{% endblock %}
 {% block content %}
-    <h1>Welcome to Seth's Momir Vig App</h1>
-    <p>Playing Momir Vig in person? Pick a mana value and this site will
-       pull a random creature of that value for you, complete with card art
-       and rules text.</p>
-    <ol>
-        <li>Click Start.</li>
-        <li>Choose a mana value.</li>
-        <li>Get a random creature. Click again for another.</li>
-    </ol>
-    <a class="button" href="{{ url_for('play') }}">Start</a>
+    <section class="hero">
+        <p class="hero-symbols">{{ "{W}{U}{B}{R}{G}" | mana }}</p>
+        <h1>Seth's Momir Vig App</h1>
+        <p class="hero-sub">Playing Momir Vig in person? Pick a mana value and get a random
+           creature, complete with card art and rules text.</p>
+        <a class="button button-primary" href="{{ url_for('play') }}">Start</a>
+        <p class="hero-link">New to the format? Read the <a href="{{ url_for('rules') }}">rules</a>.</p>
+    </section>
+
+    <section class="how-it-works">
+        <h2>How it works</h2>
+        <ol class="steps">
+            <li>
+                <strong>Click Start</strong>
+                <span>Head to the mana value page.</span>
+            </li>
+            <li>
+                <strong>Choose a mana value</strong>
+                <span>Pick the X you paid for your Momir Vig activation.</span>
+            </li>
+            <li>
+                <strong>Get a random creature</strong>
+                <span>Use it for your token, or tap again for another.</span>
+            </li>
+        </ol>
+    </section>
 {% endblock %}

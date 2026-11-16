@@ -16,6 +16,18 @@ body {
     background: var(--bg); 
     color: var(--text);
     line-height: 1.5;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+main {
+    flex: 1;
+    width: 100%;
+    box-sizing: border-box;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
 }
 
 h1 {
@@ -26,6 +38,20 @@ h1 {
 
 h2 {
     color: var(--text);
+}
+
+footer {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 1.5rem 1rem 2rem;
+    border-top: 1px solid var(--button);
+    color: var(--muted);
+    font-size: 0.85rem;
+    text-align: center;
+}
+
+footer a {
+    color: var(--accent);
 }
 
 .button {

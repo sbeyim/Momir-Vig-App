@@ -1,12 +1,33 @@
 from flask import Flask, render_template, abort
 import ScryfallRequest
+import re
+from markupsafe import Markup, escape
 
 app = Flask(__name__)
 
 Missing_Mana_Values = {14}
 Mana_Values = [mv for mv in range(0, 17) if mv not in Missing_Mana_Values]
 
+SYMBOL_PATTERN = re.compile(r"\{([A-Z0-9/]+)\}")
 
+
+@app.template_filter("mana")
+def mana_filter(text):
+    if not text:
+        return ""
+
+    safe_text = str(escape(text))   # neutralize any HTML in the data first
+
+    def to_image(match):
+        code = match.group(1)               # e.g. "W", "2", "W/U", "T"
+        file_name = code.replace("/", "")   # "W/U" -> "WU"
+        return (
+            f'<img class="mana-symbol" '
+            f'src="https://svgs.scryfall.io/card-symbols/{file_name}.svg" '
+            f'alt="{{{code}}}">'
+        )
+
+    return Markup(SYMBOL_PATTERN.sub(to_image, safe_text))
 
 @app.route("/")
 def landing():

@@ -87,8 +87,31 @@ footer a {
     margin: 0;
 }
 
-.card-display { display: flex; flex-wrap: wrap; gap: 1.5rem; margin: 1.5rem 0; }
+.card-display { 
+    display: flex; 
+    flex-wrap: wrap; 
+    gap: 1.5rem; 
+    margin: 1.5rem 0; 
+}
 
-.card-display img { width: 300px; max-width: 100%; border-radius: 12px; }
+.card-display  > img { 
+    width: 300px; 
+    max-width: 100%; 
+    border-radius: 12px; 
+}
 
-.oracle { white-space: pre-line; }
+.oracle { 
+    white-space: pre-line; 
+}
+
+.mana-symbol {
+    height: 1em;
+    width: 1em;
+    vertical-align: -0.15em;   /* sits the symbol on the text baseline */
+    margin: 0 1px;
+}
+
+.mana-cost .mana-symbol {
+    height: 1.4em;
+    width: 1.4em;
+}

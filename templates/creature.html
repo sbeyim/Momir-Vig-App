@@ -10,9 +10,9 @@
             {% endif %}
             <div class="card-text">
                 <h2>{{ card.name }}</h2>
-                <p>{{ card.mana_cost }}</p>
+                <p class="mana-cost">{{ card.mana_cost | mana }}</p>
                 <p>{{ card.type_line }}</p>
-                <p class="oracle">{{ card.oracle_text }}</p>
+                <p class="oracle">{{ card.oracle_text | mana }}</p>
                 {% if card.power is not none and card.toughness is not none %}
                     <p>({{ card.power }}/{{ card.toughness }})</p>
                 {% endif %}

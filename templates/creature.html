@@ -11,10 +11,10 @@
             <div class="card-text">
                 <h2>{{ card.name }}</h2>
                 <p class="mana-cost">{{ card.mana_cost | mana }}</p>
-                <p>{{ card.type_line }}</p>
+                <p class="type-line">{{ card.type_line }}</p>
                 <p class="oracle">{{ card.oracle_text | mana }}</p>
                 {% if card.power is not none and card.toughness is not none %}
-                    <p>({{ card.power }}/{{ card.toughness }})</p>
+                    <p class="pt">{{ card.power }}/{{ card.toughness }}</p>
                 {% endif %}
             </div>
         </div>
@@ -22,6 +22,9 @@
         <p>Couldn't find a creature for that mana value. Try again.</p>
     {% endif %}
 
-    <a class="button" href="{{ url_for('creature', mana_value=mana_value) }}">Another X={{ mana_value }}</a>
-    <a class="button" href="{{ url_for('play') }}">Change mana value</a>
+    <div class="actions">
+        <a class="button" href="{{ url_for('creature', mana_value=mana_value) }}">Another X={{ mana_value }}</a>
+        <a class="button" href="{{ url_for('play') }}">Change mana value</a>
+    </div>
+
 {% endblock %}

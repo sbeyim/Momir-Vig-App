@@ -87,21 +87,73 @@ footer a {
     margin: 0;
 }
 
-.card-display { 
-    display: flex; 
-    flex-wrap: wrap; 
-    gap: 1.5rem; 
-    margin: 1.5rem 0; 
+.card-display {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    gap: 1.5rem;
+    background: var(--surface);
+    padding: 1.25rem;
+    border-radius: 12px;
+    margin: 1.5rem 0;
 }
 
-.card-display  > img { 
-    width: 300px; 
-    max-width: 100%; 
-    border-radius: 12px; 
+.card-display > img {
+    width: 300px;
+    max-width: 100%;
+    border-radius: 12px;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4);
 }
 
-.oracle { 
-    white-space: pre-line; 
+.card-text {
+    flex: 1 1 260px;
+    min-width: 0;
+}
+
+.card-text h2 {
+    color: var(--accent);
+    font-size: 1.6rem;
+    margin: 0 0 0.25rem;
+}
+
+.mana-cost {
+    margin: 0 0 0.25rem;
+}
+
+.type-line {
+    color: var(--muted);
+    margin: 0 0 1rem;
+}
+
+.oracle {
+    padding-top: 1rem;
+    border-top: 1px solid var(--button);
+}
+
+.pt {
+    display: inline-block;
+    background: var(--button);
+    padding: 0.25rem 0.75rem;
+    border-radius: 6px;
+    font-size: 1.2rem;
+    font-weight: 700;
+}
+
+.actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.actions .button {
+    margin: 0;
+}
+
+@media (max-width: 640px) {
+    .card-display > img {
+        display: block;
+        margin: 0 auto;
+    }
 }
 
 .mana-symbol {

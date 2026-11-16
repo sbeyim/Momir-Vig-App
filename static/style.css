@@ -1,11 +1,11 @@
 :root {
-    --bg: #2b2d31;            /* page background: darkish gray*/
-    --surface: #36393f;       /* cards/panels, slightly lighter than the bg*/
-    --text: #e4e6ea;          /* body text: soft off-white, easier on the eyes than pure white */
-    --muted: #a0a4ab;         /* secondary text, footer */
-    --accent: #f0c24b;        /* gold, for titles and highlights */
-    --button: #4a4e57;
-    --button-hover: #5d626d;
+    --bg: #40434a;            /* lighter gray page background */
+    --surface: #4b4f57;       /* panels, a step lighter than the bg */
+    --text: #f1f2f4;          /* body text */
+    --muted: #b8bcc4;         /* secondary text, footer */
+    --accent: #7cc4ff;        /* soft sky blue for titles and highlights */
+    --button: #5a5f69;
+    --button-hover: #6c727e;
 }
 
 
